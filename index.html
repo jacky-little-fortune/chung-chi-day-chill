@@ -69,15 +69,33 @@ a{color:var(--maple)}
 .dot small{font-size:11px}
 .stop .card{margin:0;flex:1}
 .walk{margin:-4px 0 -4px 74px;font-size:14px;color:var(--ink-soft)}
-/* 示意地圖 */
-.map{position:relative;border:2.5px solid var(--line);border-radius:24px 18px 26px 16px/18px 26px 16px 24px;overflow:hidden;aspect-ratio:720/1280;
-  background:#E3EBD6 url(assets/map-base.webp) center/cover no-repeat;box-shadow:3px 4px 0 rgba(90,62,43,.18);margin:14px 0}
-.map .mk{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;text-decoration:none;color:var(--ink)}
-.map .mk i{font-style:normal;width:44px;height:44px;border-radius:50%;background:var(--orange);color:#fff;border:3px solid #fff;box-shadow:0 2px 0 var(--line);
-  display:flex;align-items:center;justify-content:center;font:700 22px "Zen Maru Gothic",sans-serif}
-.map .mk span{margin-top:3px;background:rgba(255,246,229,.95);border:2px solid var(--line);border-radius:12px;padding:1px 8px;font-size:13px;font-weight:700;white-space:nowrap}
-.map .mk.two i{background:var(--ginkgo);color:var(--ink)} .map .mk.warn i{background:var(--maple)}
-.map .disc{position:absolute;left:8px;top:8px;background:rgba(255,246,229,.95);border:2px dashed var(--maple);color:var(--maple);border-radius:12px;padding:2px 10px;font-size:13px;font-weight:700}
+/* 活動地圖（主辦方代號 A–H） */
+.mapfig{margin:14px 0;border:2.5px solid var(--line);border-radius:24px 18px 26px 16px/18px 26px 16px 24px;overflow:hidden;
+  box-shadow:3px 4px 0 rgba(90,62,43,.18);background:var(--cream)}
+.mapopen{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in}
+.mapfig img,.mapdlg img{width:100%;height:auto;display:block}
+.mapfig figcaption{padding:8px 12px 10px}
+.mapdlg{border:none;padding:0;width:min(960px,100vw);max-width:100vw;max-height:100dvh;background:var(--cream);overflow:auto}
+.mapdlg::backdrop{background:rgba(74,52,38,.55)}
+.mapdlgbar{position:sticky;top:0;display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--cream);z-index:2}
+.badge{flex:0 0 36px;width:36px;height:36px;border-radius:50%;border:2px solid var(--line);display:inline-flex;align-items:center;justify-content:center;
+  font-weight:700;line-height:1;color:#fff;background:#2F9E4B}
+.badge.sm{flex-basis:28px;width:28px;height:28px;font-size:15px;margin-right:4px;vertical-align:-7px}
+.badge.sq{border-radius:8px}
+.badge.green{background:#2F9E4B;color:#fff}
+.badge.yellow{background:#F0C43A;color:var(--ink)}
+.badge.orange{background:#E36B32;color:#fff}
+.badge.brown{background:#C4843C;color:#fff}
+.badge.tea{background:var(--ginkgo);color:var(--ink)}
+.pkey{display:flex;gap:10px;align-items:flex-start;text-decoration:none;color:inherit;padding:8px 0;border-bottom:2px dotted rgba(90,62,43,.25)}
+.pkey:last-child{border-bottom:0}
+.pkey .body{flex:1;min-width:0}
+.pkey b{font-size:16px}
+.tag{display:inline-block;margin:3px 4px 0 0;border:1.5px solid var(--line);border-radius:999px;padding:0 8px;font-size:12px;font-weight:700;background:var(--paper)}
+.tag.go{background:#FFE6A8}
+.ess{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.ess .row{display:flex;gap:8px;align-items:flex-start}
+.ess .k{flex:0 0 auto;margin-top:2px}
 /* 活動 */
 .evlist a{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);min-height:84px}
 .evlist .thumb{flex:0 0 88px;height:66px;border-radius:18px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:38px;overflow:hidden}
@@ -133,29 +151,28 @@ const EVENTS = [
     name:"聯合書院慶生日會及下午茶聚", short:"慶生日會及下午茶聚",
     time:"2:00 – 2:45pm",
     place:"張祝珊師生康樂大樓地下 學生飯堂及教職員餐廳",
+    orient:"同一棟的一樓是地圖 C 張煊昌體育館、F 乒乓球室及健身室。茶聚在地下。",
     content:["聯合書院慶生日會及下午茶聚"],
     notes:["已確認報名，確認人數：3"],
     tips:["係成日第一站，可以早少少到，順便俾小朋友熟悉吓環境。","2:45pm 完結後，下一站 Chill Club 同攝影區 3:00pm 開始。"] },
   { id:"chillclub", art:"event-chillclub.webp", emoji:"🎈", color:"#FFF0B8",
     name:"節目二：兒童樂園 Chill Club", short:"兒童樂園 Chill Club",
     time:"3:00 – 6:00pm",
-    place:"張祝珊師生康樂大樓一樓 張煊昌體育館",
+    map:"C",
     content:["吹氣彈床滑梯","免費雪糕，限量 200 杯，派完即止"],
     notes:["已確認報名，確認人數：1","現場將根據確認人數派發雪糕券","雪糕限量，派完即止"],
     tips:["雪糕限量，建議 3:00pm 一到先攞雪糕券／雪糕。","玩彈床前可以先除鞋、脫外套，記得帶後備衫同小毛巾抹汗。","雪糕券請大人保管好。"] },
   { id:"photo", art:"event-photo.webp", emoji:"📸", color:"#DDEBD3",
     name:"節目三：Chill Cool 攝影區", short:"Chill Cool 攝影區",
     time:"3:00 – 6:00pm",
-    place:"聯合書院胡忠圖書館對下 天機數碼創意空間",
-    placeNote:"地點名稱按報名表相片辨認，請現場留意指示",
+    map:"D",
     content:["校友拍攝家庭照","現場提供相框及道具，供校友及親友合照"],
     notes:["已確認報名","已確認報名嘅校友最多可攜同 3 位親友參加"],
     tips:["同 Chill Club 時段一樣（3:00–6:00pm），可以玩完彈床先嚟影相。","可以帶埋自己部相機或手機，影多幾張全家福。"] },
   { id:"cat", art:"event-cat.webp", emoji:"🐱", color:"#F8D3C5",
     name:"節目六：Chill 減壓貓咪工作坊", short:"Chill 減壓貓咪工作坊",
     time:"4:00 – 6:00pm",
-    place:"聯合書院曾肇添樓 407 室 蔡冠深 L+",
-    placeNote:"地點名稱按報名表相片辨認，請現場留意指示",
+    map:"G",
     content:["親手配色、畫表情、畫花紋等細節，上色超簡單","適合大人小朋友，讓你帶走一隻屬於自己手繪的貓咪"],
     notes:["已確認報名，確認人數：2","現場將根據確認人數派發手繩，活動須憑手繩參加","不設逾時等候安排——請準時到"],
     tips:["4:00pm 要準時，冇逾時等候，建議提早由前一站出發。","手繩要好好保管，入場要憑手繩。","上色可能整污手，帶濕紙巾。"] }
@@ -163,9 +180,21 @@ const EVENTS = [
 
 const ROUTE = [
   { t:"2:00", end:"2:45pm", ev:"tea", hint:"" },
-  { t:"3:00", end:"6:00pm", ev:"chillclub", hint:"一到先攞雪糕（限量 200 杯，派完即止）" },
-  { t:"3:00", end:"6:00pm", ev:"photo", hint:"同 Chill Club 同一時段，玩完可以過嚟影家庭照" },
-  { t:"4:00", end:"6:00pm", ev:"cat", hint:"要準時！不設逾時等候安排" }
+  { t:"3:00", end:"6:00pm", ev:"chillclub", hint:"一到先攞雪糕（限量 200 杯，派完即止）", walk:"同一棟，由地下飯堂上到一樓體育館（地圖 C）" },
+  { t:"3:00", end:"6:00pm", ev:"photo", hint:"同 Chill Club 同一時段，玩完可以過嚟影家庭照", walk:"由康樂大樓走向胡忠圖書館（地圖中間 D）" },
+  { t:"4:00", end:"6:00pm", ev:"cat", hint:"要準時！不設逾時等候安排", walk:"由圖書館走向曾肇添樓（地圖左下方 G），預留行路時間" }
+];
+
+/* 主辦方《七十周年院慶校友日活動地圖》代號。star = 詢問處，stamp = 集章處。 */
+const PLACES = [
+  { code:"A", name:"蔡繼有宿舍", where:"", star:true, stamp:true, tone:"green", shape:"circle" },
+  { code:"B", name:"聯合書院水塔", where:"", star:true, stamp:true, tone:"yellow", shape:"square" },
+  { code:"C", name:"張煊昌體育館", where:"張祝珊師生康樂大樓一樓", star:true, stamp:true, tone:"green", shape:"circle", ev:"chillclub" },
+  { code:"D", name:"天機數碼創意空間", where:"胡忠圖書館", star:true, stamp:true, tone:"yellow", shape:"square", ev:"photo" },
+  { code:"E", name:"UCC C1 演講廳", where:"鄭棟材樓", star:true, stamp:true, tone:"green", shape:"circle" },
+  { code:"F", name:"乒乓球室及健身室", where:"張祝珊師生康樂大樓一樓", star:false, stamp:false, tone:"orange", shape:"square" },
+  { code:"G", name:"L+", where:"曾肇添樓 407 室", star:false, stamp:false, tone:"orange", shape:"circle", ev:"cat" },
+  { code:"H", name:"思源文娛中心", where:"鄭棟材樓", star:false, stamp:true, tone:"brown", shape:"circle" }
 ];
 
 const CHECKLIST = [
@@ -182,7 +211,36 @@ function art(file, emoji, alt){
     onload="this.previousElementSibling&&this.previousElementSibling.remove()" onerror="this.remove()">`;
 }
 const ev = id => EVENTS.find(e => e.id === id);
+const placeByCode = code => PLACES.find(p => p.code === code);
+function placeText(e){
+  if(e.map){
+    const p = placeByCode(e.map);
+    return `${p.code} ${p.name}${p.where ? "（" + p.where + "）" : ""}`;
+  }
+  return e.place;
+}
+function placeMeta(e){
+  if(e.orient) return e.orient;
+  if(!e.map) return "";
+  const p = placeByCode(e.map);
+  const bits = [];
+  if(p.star) bits.push("設有詢問處");
+  if(p.stamp) bits.push("集章處");
+  return bits.join(" · ");
+}
+function badge(code, tone, shape, sm){
+  return `<span class="badge ${tone}${shape==="square"?" sq":""}${sm?" sm":""}">${code}</span>`;
+}
+function eventBadge(e, sm){
+  if(e.map){ const p = placeByCode(e.map); return badge(p.code, p.tone, p.shape, sm); }
+  return badge("茶", "tea", "circle", sm);
+}
 function topBar(title, back){ return `<div class="topbar"><a class="back" href="${back||"#/"}" aria-label="返回">‹</a><h2>${title}</h2></div>`; }
+function eventWhen(){
+  const d = CONFIG.eventDate.replace(/-/g,"");
+  const dt = new Date(+d.slice(0,4), +d.slice(4,6)-1, +d.slice(6,8));
+  return `${+d.slice(0,4)}年${+d.slice(4,6)}月${+d.slice(6,8)}日（星期${"日一二三四五六"[dt.getDay()]}）2:00–6:00pm`;
+}
 
 /* ---------- views ---------- */
 function home(){
@@ -201,35 +259,76 @@ function home(){
     <a class="tile" href="#/weather"><span class="ico">${art("icon-weather.webp","⛅")}</span><b>天氣預測</b><span class="sub">天文台九天預報</span></a>
     <a class="tile" href="#/checklist"><span class="ico">${art("icon-checklist.webp","🎒")}</span><b>預備物資</b><span class="sub">出門前剔一剔</span></a>
   </nav>
-  <p class="foot">資料來源：聯合書院確認報名電郵｜如有更改以主辦方公佈為準</p>`;
+  <p class="foot">資料來源：聯合書院確認報名電郵、七十周年院慶校友日活動地圖｜如有更改以主辦方公佈為準</p>`;
 }
 
+function todayRows(){
+  const rows = [
+    { id:"tea", sub:"2:00–2:45 · 康樂大樓地下飯堂（與 C、F 同一棟）" },
+    { id:"chillclub", sub:"3:00–6:00 · 張煊昌體育館" },
+    { id:"photo", sub:"3:00–6:00 · 天機數碼創意空間" },
+    { id:"cat", sub:"4:00–6:00 · 曾肇添樓 L+ 407" }
+  ];
+  return rows.map(r => {
+    const e = ev(r.id);
+    return `<a class="pkey" href="#/event/${e.id}">${eventBadge(e)}<span class="body"><b>${esc(e.short)}</b><div class="note">${esc(r.sub)}</div></span></a>`;
+  }).join("");
+}
+function placeRows(){
+  return PLACES.map(p => {
+    const tags = [
+      p.star ? `<span class="tag">詢問處</span>` : "",
+      p.stamp ? `<span class="tag">集章</span>` : "",
+      p.ev ? `<span class="tag go">今日</span>` : ""
+    ].join("");
+    const inner = `${badge(p.code, p.tone, p.shape)}<span class="body"><b>${esc(p.name)}</b>${p.where ? `<div class="note">${esc(p.where)}</div>` : ""}<div>${tags}</div></span>`;
+    return p.ev ? `<a class="pkey" href="#/event/${p.ev}">${inner}</a>` : `<div class="pkey">${inner}</div>`;
+  }).join("");
+}
 function route(){
-  const stops = ROUTE.map((r,i) => {
+  const stops = ROUTE.map(r => {
     const e = ev(r.ev);
-    return `${i ? `<div class="walk">🚶 前往下一站：請現場留意指示</div>` : ""}
+    return `${r.walk ? `<div class="walk">🚶 ${esc(r.walk)}</div>` : ""}
     <li class="stop"><div class="dot" style="background:${e.color}">${r.t}<small>pm</small></div>
       <a class="card" href="#/event/${e.id}" style="text-decoration:none;color:inherit;display:block">
-        <b>${esc(e.short)}</b><div class="note">${esc(r.t)} – ${esc(r.end)}</div>
-        <div>📍 ${esc(e.place)}</div>${r.hint ? `<div style="margin-top:4px;font-weight:700;color:var(--maple)">⭐ ${esc(r.hint)}</div>` : ""}
+        <b>${eventBadge(e, true)} ${esc(e.short)}</b><div class="note">${esc(r.t)} – ${esc(r.end)}</div>
+        <div>📍 ${esc(placeText(e))}</div>${r.hint ? `<div style="margin-top:4px;font-weight:700;color:var(--maple)">⭐ ${esc(r.hint)}</div>` : ""}
       </a></li>`;
   }).join("");
+  const alt = "聯合書院七十周年院慶校友日活動地圖。A 至 H 是官方地點；橙色標示今日家庭行程：下午茶在康樂大樓地下、C 體育館、D 天機數碼創意空間、G 曾肇添樓 L+。";
   return `${topBar("規劃路線")}
-  <div class="card"><b>🚇 建議交通</b><div>港鐵大學站 → 校巴往聯合書院</div><div class="note">校巴班次及上落車位置請現場留意指示。</div></div>
-  <div class="map" role="img" aria-label="路線示意圖">
-    <span class="disc">示意圖，非實際比例／位置</span>
-    <a class="mk" href="#/event/tea" style="left:37%;top:83%"><i>1</i><span>2:00 下午茶聚</span></a>
-    <a class="mk two" href="#/event/chillclub" style="left:49%;top:60%"><i>2</i><span>3:00 Chill Club</span></a>
-    <a class="mk two" href="#/event/photo" style="left:49%;top:38%"><i>3</i><span>3:00 攝影區</span></a>
-    <a class="mk warn" href="#/event/cat" style="left:52%;top:20%"><i>4</i><span>4:00 貓咪工作坊</span></a>
+  <p class="note" style="margin:4px 0 0">${eventWhen()} · 七十周年院慶校友日</p>
+  <figure class="mapfig">
+    <button type="button" class="mapopen" id="openmap" aria-label="放大活動地圖">
+      <img src="assets/campus-map.webp" width="1200" height="1908" alt="${esc(alt)}">
+    </button>
+    <figcaption class="note">方位、代號同名稱依照主辦方《活動地圖》。撳圖可以放大。</figcaption>
+  </figure>
+  <dialog class="mapdlg" id="mapdlg">
+    <div class="mapdlgbar"><button type="button" class="back" id="closemap" aria-label="關閉">×</button><b>活動地圖</b></div>
+    <img src="assets/campus-map.webp" alt="${esc(alt)}">
+  </dialog>
+  <div class="card"><b>今日行程</b>${todayRows()}</div>
+  <div class="card"><b>校園須知</b><div class="ess">
+    <div class="row"><span class="k pill">集章</span><span>A 蔡繼有宿舍、B 水塔、C 體育館、D 天機數碼、E 演講廳、H 思源</span></div>
+    <div class="row"><span class="k pill">詢問處</span><span>A、B、C、D、E（活動地圖帶 *）</span></div>
+    <div class="row"><span class="k pill">專車</span><span>5:15–6:15pm 往大學站（康樂大樓一側，地圖巴士圖示）</span></div>
+    <div class="row"><span class="k pill">泊車</span><span>訪客停車場（地圖藍色 P）</span></div>
+    <div class="row"><span class="k pill">急救</span><span>急救站在張祝珊師生康樂大樓旁（綠色十字）</span></div>
+    <div class="row"><span class="k pill">紀念品</span><span>七十周年紀念品售賣攤位（胡忠圖書館／D 附近）</span></div>
+  </div></div>
+  <div class="card"><b>活動地圖代號 A–H</b>${placeRows()}</div>
+  <div class="card"><b>🚇 點去、點返</b>
+    <div>去：港鐵大學站 → 校巴往聯合書院</div>
+    <div>返：5:15–6:15pm 專車往大學站</div>
+    <div class="note">專車上落客站見地圖巴士圖示。校巴班次請現場留意指示。</div>
   </div>
-  <p class="note" style="margin-top:-6px">地圖只作順序示意，建築、方向同距離都唔準確；實際路線請以現場指示及中大官方校園地圖為準。</p>
   <ol class="timeline">${stops}</ol>
   <div class="card"><b>📝 小提示</b><ul class="list">
-    <li>3:00pm Chill Club 雪糕限量，先攞雪糕。</li>
-    <li>3:00–6:00pm Chill Club 同攝影區同時進行，可以自由安排。</li>
-    <li>4:00pm 貓咪工作坊不設逾時等候，記得預留時間行過去。</li>
-    <li>各地點之間步行時間未有資料，請現場留意指示。</li></ul></div>`;
+    <li>2:45 茶聚完，上同一棟一樓就到 C。雪糕限量，先攞。</li>
+    <li>3:00–6:00 C Chill Club 同 D 攝影區一齊開放，可以自由安排。</li>
+    <li>4:00 G 曾肇添樓 L+ 407 不設逾時等候，由 D 行過去要預留時間。</li>
+    <li>想集章可以順路蓋 C 同 D；A、B、E、H 有空先去。</li></ul></div>`;
 }
 
 function events(){
@@ -237,7 +336,7 @@ function events(){
   <div class="evlist">${EVENTS.map(e => `
     <div class="card" style="padding:10px 12px"><a href="#/event/${e.id}">
       <span class="thumb" style="background:${e.color}">${art(e.art, e.emoji)}</span>
-      <span class="meta"><b>${esc(e.short)}</b><br><span class="note">🕑 ${esc(e.time)}</span></span>
+      <span class="meta"><b>${eventBadge(e, true)} ${esc(e.short)}</b><br><span class="note">🕑 ${esc(e.time)}</span><br><span class="note">📍 ${esc(placeText(e))}</span></span>
       <span class="arrow">›</span></a></div>`).join("")}</div>`;
 }
 
@@ -250,7 +349,7 @@ function eventPage(id){
     <dl class="facts">
       <dt>🕑 時間</dt><dd>${esc(e.time)}</dd>
       <dt>📅 日期</dt><dd>${CONFIG.eventDate ? fmtDate(CONFIG.eventDate) : '<span class="tbd">待確認</span>'}</dd>
-      <dt>📍 地點</dt><dd>${esc(e.place)}${e.placeNote ? `<div class="note">（${esc(e.placeNote)}）</div>` : ""}</dd>
+      <dt>📍 地點</dt><dd>${esc(placeText(e))}${placeMeta(e) ? `<div class="note">${esc(placeMeta(e))}</div>` : ""}</dd>
     </dl></div>
   <div class="card"><b>🎨 內容</b>${li(e.content)}</div>
   <div class="card" style="background:#FFF0E0"><b>⚠️ 注意事項</b>${li(e.notes)}</div>
@@ -335,6 +434,16 @@ function render(){
   $app.innerHTML = `<div class="view">${html}</div>`;
   window.scrollTo(0,0);
   if(p === "weather") loadWeather();
+  if(p === "route"){
+    const dlg = document.getElementById("mapdlg");
+    const open = document.getElementById("openmap");
+    const close = document.getElementById("closemap");
+    if(open && dlg && close){
+      open.onclick = () => dlg.showModal();
+      close.onclick = () => dlg.close();
+      dlg.addEventListener("click", e => { if(e.target === dlg) dlg.close(); });
+    }
+  }
   if(p === "checklist"){
     const toggle = el => {
       const i = +el.dataset.i; let s = JSON.parse(localStorage.getItem("ccd-check") || "[]");
